@@ -20,6 +20,9 @@ jobs:
            - prod
     environment: ${{ matrix.environment }}
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src
     env:
       LOGIN_FLOW: client_credentials
       CDF_CLUSTER: westeurope-1
@@ -46,5 +49,6 @@ jobs:
         run: pip install cognite-toolkit==${{ env.TOOLKIT_VERSION }}
       - name: Build Toolkit Configurations
         run: cdf build --env=${{ matrix.environment }}
+
       - name: Deploy Toolkit Configurations
         run: cdf deploy --env=${{ matrix.environment }}
